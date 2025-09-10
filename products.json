@@ -1,12 +1,11 @@
 [
   {
     "id": 1,
-    "category": "Electronics",
-    "name": "Wireless Earbuds w/ ANC",
-    "desc": "40hrs playtime • USB-C • IPX5",
-    "price": 2899,
-    "image": "earbuds.jpg",
-    "link": "https://example.com/earbuds"
+    "category": "home",
+    "name": "vel murugan",
+    "price": 189,
+    "image": "c:\Users\hema\OneDrive\Pictures\tamil\wboo\vel.jpg",
+    "link": "https://amzn.to/42qKJya"
   },
   {
     "id": 2,

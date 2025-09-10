@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cart - WowBuys</title>
+<style>
+  body {font-family: system-ui, sans-serif; padding:20px; background:#f8f9fc;}
+  h1 {margin-bottom:16px;}
+  ul {list-style:none; padding:0;}
+  li {
+    background:#fff; margin:8px 0; padding:12px 14px;
+    border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.08);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .remove {
+    background:#ff47c2; color:#fff; border:none;
+    padding:6px 10px; border-radius:8px; cursor:pointer;
+  }
+  .remove:hover {opacity:.9;}
+  .total {
+    margin-top:18px; font-size:18px; font-weight:700;
+  }
+</style>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <ul id="cartList"></ul>
+  <div class="total" id="total"></div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const ul = document.getElementById("cartList");
+    const totalEl = document.getElementById("total");
+
+    function renderCart() {
+      ul.innerHTML = "";
+      if (cart.length === 0) {
+        ul.innerHTML = "<li>Cart is empty 🛒</li>";
+        totalEl.textContent = "";
+        return;
+      }
+
+      let total = 0;
+      cart.forEach((p, index) => {
+        total += p.price;
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${p.name} – ₹${p.price.toLocaleString()}</span>
+          <button class="remove" data-index="${index}">Remove</button>
+        `;
+        ul.appendChild(li);
+      });
+
+      totalEl.textContent = "Total: ₹" + total.toLocaleString();
+
+      // Remove buttons
+      document.querySelectorAll(".remove").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const i = e.target.dataset.index;
+          cart.splice(i, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          renderCart();
+        });
+      });
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

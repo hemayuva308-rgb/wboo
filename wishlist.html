@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Wishlist - WowBuys</title>
+<style>
+  body {font-family: system-ui, sans-serif; padding:20px; background:#f8f9fc;}
+  h1 {margin-bottom:16px;}
+  ul {list-style:none; padding:0;}
+  li {
+    background:#fff; margin:8px 0; padding:12px 14px;
+    border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.08);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .remove {
+    background:#ff4757; color:#fff; border:none;
+    padding:6px 10px; border-radius:8px; cursor:pointer;
+  }
+  .remove:hover {opacity:.9;}
+</style>
+</head>
+<body>
+  <h1>Your Wishlist</h1>
+  <ul id="wishList"></ul>
+
+  <script>
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const ul = document.getElementById("wishList");
+
+    function renderWish() {
+      ul.innerHTML = "";
+      if (wishlist.length === 0) {
+        ul.innerHTML = "<li>Wishlist is empty ❤</li>";
+        return;
+      }
+
+      wishlist.forEach((p, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${p.name} – ₹${p.price.toLocaleString()}</span>
+          <button class="remove" data-index="${index}">Remove</button>
+        `;
+        ul.appendChild(li);
+      });
+
+      document.querySelectorAll(".remove").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const i = e.target.dataset.index;
+          wishlist.splice(i, 1);
+          localStorage.setItem("wishlist", JSON.stringify(wishlist));
+          renderWish();
+        });
+      });
+    }
+
+    renderWish();
+  </script>
+</body>
+</html>

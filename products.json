@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "category": "Electronics",
+    "name": "Wireless Earbuds w/ ANC",
+    "desc": "40hrs playtime • USB-C • IPX5",
+    "price": 2899,
+    "image": "earbuds.jpg",
+    "link": "https://example.com/earbuds"
+  },
+  {
+    "id": 2,
+    "category": "Home",
+    "name": "Magnetic Spice Jars (12pc)",
+    "desc": "Labels + funnel • Space saver",
+    "price": 1799,
+    "image": "spice.jpg",
+    "link": "https://example.com/spice"
+  },
+  {
+    "id": 3,
+    "category": "Beauty",
+    "name": "Ceramide Moisturizer",
+    "desc": "Fragrance-free • 50ml",
+    "price": 549,
+    "image": "moisturizer.jpg",
+    "link": "https://example.com/moisturizer"
+  },
+  {
+    "id": 4,
+    "category": "Fitness",
+    "name": "Yoga Mat (6mm Anti-Slip)",
+    "desc": "Eco-friendly • Carry strap included",
+    "price": 999,
+    "image": "yogamat.jpg",
+    "link": "https://example.com/yogamat"
+  }
+]

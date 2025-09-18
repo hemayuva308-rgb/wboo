@@ -51,14 +51,34 @@
   .pill:hover{border-color: var(--ring); transform: translateY(-1px)}
 
   /* controls */
-  .controls{margin:16px 0 0; display:grid; gap:12px; grid-template-columns:1fr;}
-  @media (min-width:700px){.controls{grid-template-columns:1.2fr .6fr .6fr}}
+  .controls{
+    margin:16px 0 0;
+    display:grid;
+    gap:12px;
+    grid-template-columns:1fr;
+  }
+
   .input, .select{
     width:100%; padding:14px 16px; border-radius:14px; border:1px solid rgba(0,0,0,.12);
     background: var(--card); color:var(--text); outline:none; box-shadow: var(--shadow);
     font-size:15px;
   }
   .input:focus, .select:focus{border-color: var(--ring)}
+
+  /* side controls */
+  .side-controls{
+    display:flex;
+    gap:12px;
+  }
+  .side-controls .select{
+    flex:1;
+  }
+
+  @media (min-width:700px){
+    .controls{
+      grid-template-columns:1.2fr 1fr; /* search | (categories+sort) */
+    }
+  }
 
   /* chips */
   .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
@@ -120,7 +140,7 @@
       <small>Budget-friendly picks • No extra cost to you</small>
     </div>
 
-    <!-- ✅ Only one header, with Cart & Wishlist -->
+    <!-- ✅ Header -->
     <header class="header">
       <div class="brand">
         <div class="logo"><img src="wowwbuys logo.png" alt="WowBuys Logo"></div>
@@ -137,30 +157,32 @@
       </nav>
     </header>
 
-    <!-- Controls -->
+    <!-- ✅ Controls -->
     <div class="controls">
       <input class="input" placeholder="Search products…" />
       
-      <!-- Categories with Emoji -->
-      <select class="select">
-        <option>📂 All Categories</option>
-        <option>📱 Electronics</option>
-        <option>🏠 Home</option>
-        <option>💄 Beauty</option>
-        <option>💪 Fitness</option>
-      </select>
-      
-      <!-- Sort with Emoji -->
-      <select class="select">
-        <option>🔝 Sort: Featured</option>
-        <option>🆕 Latest</option>
-        <option>⬇ Price: Low → High</option>
-        <option>⬆ Price: High → Low</option>
-      </select>
+      <div class="side-controls">
+        <!-- Categories with Emoji -->
+        <select class="select">
+          <option>📂 All Categories</option>
+          <option>📱 Electronics</option>
+          <option>🏠 Home</option>
+          <option>💄 Beauty</option>
+          <option>💪 Fitness</option>
+        </select>
+
+        <!-- Sort with Emoji -->
+        <select class="select">
+          <option>🔝 Sort: Featured</option>
+          <option>🆕 Latest</option>
+          <option>⬇ Price: Low → High</option>
+          <option>⬆ Price: High → Low</option>
+        </select>
+      </div>
     </div>
 
+    <!-- Chips -->
     <div class="chips">
-      
       <span class="chip">⭐ Top-rated</span>
       <span class="chip">💸 Under ₹1000</span>
     </div>
@@ -221,5 +243,6 @@
       <h2>Contact</h2>
       <p class="muted">Instagram DM: <a class="pill" href="https://instagram.com/wowbuysofficial" target="_blank" rel="noopener">@wowbuysofficial</a></p>
     </section>
+  </div>
 </body>
 </html>

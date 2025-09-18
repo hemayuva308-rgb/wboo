@@ -11,12 +11,17 @@
     background:#fff; margin:8px 0; padding:12px 14px;
     border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.08);
     display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap;
+  }
+  .empty {
+    text-align:center; padding:20px; color:#666; font-style:italic;
   }
   .remove {
     background:#ff4757; color:#fff; border:none;
-    padding:6px 10px; border-radius:8px; cursor:pointer;
+    padding:6px 12px; border-radius:8px; cursor:pointer;
+    transition:0.2s;
   }
-  .remove:hover {opacity:.9;}
+  .remove:hover {opacity:.85; transform:scale(1.05);}
 </style>
 </head>
 <body>
@@ -29,29 +34,32 @@
 
     function renderWish() {
       ul.innerHTML = "";
+
       if (wishlist.length === 0) {
-        ul.innerHTML = "<li>Wishlist is empty ❤</li>";
+        ul.innerHTML = <li class="empty">Wishlist is empty ❤</li>;
         return;
       }
 
       wishlist.forEach((p, index) => {
+        let price = Number(p.price) || 0;
         const li = document.createElement("li");
         li.innerHTML = `
-          <span>${p.name} – ₹${p.price.toLocaleString()}</span>
+          <span>${p.name} – ₹${price.toLocaleString()}</span>
           <button class="remove" data-index="${index}">Remove</button>
         `;
         ul.appendChild(li);
       });
-
-      document.querySelectorAll(".remove").forEach(btn => {
-        btn.addEventListener("click", e => {
-          const i = e.target.dataset.index;
-          wishlist.splice(i, 1);
-          localStorage.setItem("wishlist", JSON.stringify(wishlist));
-          renderWish();
-        });
-      });
     }
+
+    // Event delegation for remove buttons
+    ul.addEventListener("click", e => {
+      if (e.target.classList.contains("remove")) {
+        const i = e.target.dataset.index;
+        wishlist.splice(i, 1);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        renderWish();
+      }
+    });
 
     renderWish();
   </script>

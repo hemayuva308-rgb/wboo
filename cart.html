@@ -11,14 +11,20 @@
     background:#fff; margin:8px 0; padding:12px 14px;
     border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.08);
     display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap;
+  }
+  .empty {
+    text-align:center; padding:20px; color:#666; font-style:italic;
   }
   .remove {
     background:#ff47c2; color:#fff; border:none;
-    padding:6px 10px; border-radius:8px; cursor:pointer;
+    padding:6px 12px; border-radius:8px; cursor:pointer;
+    transition:0.2s;
   }
-  .remove:hover {opacity:.9;}
+  .remove:hover {opacity:.85; transform:scale(1.05);}
   .total {
     margin-top:18px; font-size:18px; font-weight:700;
+    text-align:right;
   }
 </style>
 </head>
@@ -34,36 +40,39 @@
 
     function renderCart() {
       ul.innerHTML = "";
+      let total = 0;
+
       if (cart.length === 0) {
-        ul.innerHTML = "<li>Cart is empty 🛒</li>";
-        totalEl.textContent = "";
+        ul.innerHTML = <li class="empty">Cart is empty 🛒</li>;
+        totalEl.textContent = "Total: ₹0";
         return;
       }
 
-      let total = 0;
       cart.forEach((p, index) => {
-        total += p.price;
+        let price = Number(p.price) || 0;
+        let qty = p.qty || 1;
+        total += price * qty;
 
         const li = document.createElement("li");
         li.innerHTML = `
-          <span>${p.name} – ₹${p.price.toLocaleString()}</span>
+          <span>${p.name} (x${qty}) – ₹${(price * qty).toLocaleString()}</span>
           <button class="remove" data-index="${index}">Remove</button>
         `;
         ul.appendChild(li);
       });
 
       totalEl.textContent = "Total: ₹" + total.toLocaleString();
-
-      // Remove buttons
-      document.querySelectorAll(".remove").forEach(btn => {
-        btn.addEventListener("click", e => {
-          const i = e.target.dataset.index;
-          cart.splice(i, 1);
-          localStorage.setItem("cart", JSON.stringify(cart));
-          renderCart();
-        });
-      });
     }
+
+    // Remove handler (event delegation)
+    ul.addEventListener("click", e => {
+      if (e.target.classList.contains("remove")) {
+        const i = e.target.dataset.index;
+        cart.splice(i, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+    });
 
     renderCart();
   </script>
